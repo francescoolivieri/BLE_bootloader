@@ -1,0 +1,6 @@
+../Core/Src/service.c:30:12:Add_FWupdate_Service	104	static
+../Core/Src/service.c:53:6:Update_TX_Char	40	static
+../Core/Src/service.c:69:6:GAP_ConnectionComplete_CB	24	static
+../Core/Src/service.c:82:6:GAP_DisconnectionComplete_CB	8	static
+../Core/Src/service.c:97:6:Attribute_Modified_CB	16	static
+../Core/Src/service.c:120:6:HCI_Event_CB	48	static
