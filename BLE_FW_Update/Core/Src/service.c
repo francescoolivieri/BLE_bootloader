@@ -1,3 +1,4 @@
+#include <connection_handler.h>
 #include <stdio.h>
 
 #include "bluenrg_conf.h"
@@ -8,7 +9,6 @@
 #include "service.h"
 
 #include "flash_manager.h"
-#include "msg_handler.h"
 
 
 uint8_t CHAT_SERVICE_UUID[16] = {0x88, 0x7b, 0x98, 0x2b, 0x6b, 0xfc, 0x89, 0x9d, 0xf4, 0x48, 0xae, 0xb8, 0x88, 0x39, 0x4f, 0x98};
@@ -27,7 +27,7 @@ extern uint16_t count_pck;
 extern uint16_t consd;
 extern uint16_t total_pck;
 
-tBleStatus Add_FWupdate_Service(void){
+tBleStatus add_FW_Update_Service(void){
 	tBleStatus ret;
 	Service_UUID_t chat_service_uuid;
 	Char_UUID_t rx_char_uuid, tx_char_uuid;
@@ -37,14 +37,27 @@ tBleStatus Add_FWupdate_Service(void){
 	BLUENRG_memcpy(rx_char_uuid.Char_UUID_128, RX_CHAR_UUID, 16);
 	BLUENRG_memcpy(tx_char_uuid.Char_UUID_128, TX_CHAR_UUID, 16);
 
-	/* ---- Add Second Service ---- */
+	/* ---- Add FW update Service ---- */
 	ret = aci_gatt_add_serv(UUID_TYPE_128, chat_service_uuid.Service_UUID_128, PRIMARY_SERVICE, 7, &chat_service_handle);
+	if(ret != BLE_STATUS_SUCCESS){
+		printf("Error in the creation of the service \n\r");
+		return ret;
+	}
 
 	/* Add Characteristics */
 	ret = aci_gatt_add_char(chat_service_handle, UUID_TYPE_128, rx_char_uuid.Char_UUID_128, CHAT_DATA_LEN, CHAR_PROP_WRITE_WITHOUT_RESP | CHAR_PROP_WRITE, ATTR_PERMISSION_NONE, GATT_NOTIFY_ATTRIBUTE_WRITE,16, 1, &rx_char_handle);
+	if(ret != BLE_STATUS_SUCCESS){
+		printf("Failed to add RX char to the service \n\r");
+		return ret;
+	}
 
 	ret = aci_gatt_add_char(chat_service_handle, UUID_TYPE_128, tx_char_uuid.Char_UUID_128, CHAT_DATA_LEN, CHAR_PROP_NOTIFY, ATTR_PERMISSION_NONE, 0, 16, 1, &tx_char_handle);
+	if(ret != BLE_STATUS_SUCCESS){
+		printf("Failed to add TX char to the service \n\r");
+		return ret;
+	}
 
+	// prepare memory for the new FW
 	Erase_Application_Memory();
 
 	return ret;
@@ -83,15 +96,25 @@ void GAP_DisconnectionComplete_CB(void){
 	connected = FALSE;
 	connection_status = IDLE;
 	printf("Disconnection Complete...\n\r");
-	set_connectable = TRUE;
-	notification_enabled = FALSE;
 
 	if(count_pck == total_pck){
+		printf("Jump to the new FW :\n\n\r");
 		go2App();
 	}else{
+		printf("Upload FW interrupted, received %d packets over %d\n\r", count_pck, total_pck);
+
 		count_pck = 0;
 		consd = -1;
+
+		printf("Erasing firmware saved in memory...");
+		Erase_Application_Memory();
+		printf("Done\n\r");
+
+		printf("Device discoverable again...\n\r");
 	}
+
+	set_connectable = TRUE;
+	notification_enabled = FALSE;
 }
 
 void Attribute_Modified_CB(uint16_t handle, uint8_t data_length, uint8_t *att_data){

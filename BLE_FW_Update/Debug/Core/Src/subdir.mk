@@ -6,10 +6,10 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Core/Src/app_bluenrg.c \
+../Core/Src/connection_handler.c \
 ../Core/Src/flash_manager.c \
 ../Core/Src/gpio.c \
 ../Core/Src/main.c \
-../Core/Src/msg_handler.c \
 ../Core/Src/service.c \
 ../Core/Src/stm32g0xx_hal_msp.c \
 ../Core/Src/stm32g0xx_it.c \
@@ -21,10 +21,10 @@ C_SRCS += \
 
 OBJS += \
 ./Core/Src/app_bluenrg.o \
+./Core/Src/connection_handler.o \
 ./Core/Src/flash_manager.o \
 ./Core/Src/gpio.o \
 ./Core/Src/main.o \
-./Core/Src/msg_handler.o \
 ./Core/Src/service.o \
 ./Core/Src/stm32g0xx_hal_msp.o \
 ./Core/Src/stm32g0xx_it.o \
@@ -36,10 +36,10 @@ OBJS += \
 
 C_DEPS += \
 ./Core/Src/app_bluenrg.d \
+./Core/Src/connection_handler.d \
 ./Core/Src/flash_manager.d \
 ./Core/Src/gpio.d \
 ./Core/Src/main.d \
-./Core/Src/msg_handler.d \
 ./Core/Src/service.d \
 ./Core/Src/stm32g0xx_hal_msp.d \
 ./Core/Src/stm32g0xx_it.d \
@@ -57,7 +57,7 @@ Core/Src/%.o Core/Src/%.su: ../Core/Src/%.c Core/Src/subdir.mk
 clean: clean-Core-2f-Src
 
 clean-Core-2f-Src:
-	-$(RM) ./Core/Src/app_bluenrg.d ./Core/Src/app_bluenrg.o ./Core/Src/app_bluenrg.su ./Core/Src/flash_manager.d ./Core/Src/flash_manager.o ./Core/Src/flash_manager.su ./Core/Src/gpio.d ./Core/Src/gpio.o ./Core/Src/gpio.su ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/msg_handler.d ./Core/Src/msg_handler.o ./Core/Src/msg_handler.su ./Core/Src/service.d ./Core/Src/service.o ./Core/Src/service.su ./Core/Src/stm32g0xx_hal_msp.d ./Core/Src/stm32g0xx_hal_msp.o ./Core/Src/stm32g0xx_hal_msp.su ./Core/Src/stm32g0xx_it.d ./Core/Src/stm32g0xx_it.o ./Core/Src/stm32g0xx_it.su ./Core/Src/stm32g0xx_nucleo_bus.d ./Core/Src/stm32g0xx_nucleo_bus.o ./Core/Src/stm32g0xx_nucleo_bus.su ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su ./Core/Src/system_stm32g0xx.d ./Core/Src/system_stm32g0xx.o ./Core/Src/system_stm32g0xx.su ./Core/Src/usart.d ./Core/Src/usart.o ./Core/Src/usart.su
+	-$(RM) ./Core/Src/app_bluenrg.d ./Core/Src/app_bluenrg.o ./Core/Src/app_bluenrg.su ./Core/Src/connection_handler.d ./Core/Src/connection_handler.o ./Core/Src/connection_handler.su ./Core/Src/flash_manager.d ./Core/Src/flash_manager.o ./Core/Src/flash_manager.su ./Core/Src/gpio.d ./Core/Src/gpio.o ./Core/Src/gpio.su ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/service.d ./Core/Src/service.o ./Core/Src/service.su ./Core/Src/stm32g0xx_hal_msp.d ./Core/Src/stm32g0xx_hal_msp.o ./Core/Src/stm32g0xx_hal_msp.su ./Core/Src/stm32g0xx_it.d ./Core/Src/stm32g0xx_it.o ./Core/Src/stm32g0xx_it.su ./Core/Src/stm32g0xx_nucleo_bus.d ./Core/Src/stm32g0xx_nucleo_bus.o ./Core/Src/stm32g0xx_nucleo_bus.su ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su ./Core/Src/system_stm32g0xx.d ./Core/Src/system_stm32g0xx.o ./Core/Src/system_stm32g0xx.su ./Core/Src/usart.d ./Core/Src/usart.o ./Core/Src/usart.su
 
 .PHONY: clean-Core-2f-Src
 

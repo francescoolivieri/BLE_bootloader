@@ -55,8 +55,8 @@ Core/Src/app_bluenrg.o: ../Core/Src/app_bluenrg.c \
  ../Middlewares/ST/BlueNRG-MS/includes/bluenrg_gap.h \
  ../Middlewares/ST/BlueNRG-MS/includes/link_layer.h \
  ../Middlewares/ST/BlueNRG-MS/includes/hci_le.h ../Core/Inc/gpio.h \
- ../Core/Inc/main.h ../Core/Inc/service.h ../Core/Inc/msg_handler.h \
- ../Core/Inc/app_bluenrg.h
+ ../Core/Inc/main.h ../Core/Inc/service.h \
+ ../Core/Inc/connection_handler.h ../Core/Inc/app_bluenrg.h
 ../Middlewares/ST/BlueNRG-MS/includes/bluenrg_utils.h:
 ../Middlewares/ST/BlueNRG-MS/includes/bluenrg_types.h:
 ../Middlewares/ST/BlueNRG-MS/includes/compiler.h:
@@ -117,5 +117,5 @@ Core/Src/app_bluenrg.o: ../Core/Src/app_bluenrg.c \
 ../Core/Inc/gpio.h:
 ../Core/Inc/main.h:
 ../Core/Inc/service.h:
-../Core/Inc/msg_handler.h:
+../Core/Inc/connection_handler.h:
 ../Core/Inc/app_bluenrg.h:

@@ -95,8 +95,13 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 
-  BlueNRG_Init();
-  printf("Initialization Succesfull! \n\r");
+  if( BlueNRG_Init() == HAL_OK ){
+	  printf("BLE FW UPDATE Initialization Succesfull! \n\r");
+  }else{
+	  printf("BLE FW UPDATE Initialization FAILED! \n\r");
+	  while(1);
+  }
+
   fflush(stdout);
 
   /* USER CODE END 2 */

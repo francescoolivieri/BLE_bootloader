@@ -1,5 +1,5 @@
 Core/Src/service.o: ../Core/Src/service.c \
- ../BlueNRG-MS/Target/bluenrg_conf.h \
+ ../Core/Inc/connection_handler.h ../BlueNRG-MS/Target/bluenrg_conf.h \
  ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal.h \
  ../Core/Inc/stm32g0xx_hal_conf.h \
  ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_rcc.h \
@@ -48,8 +48,8 @@ Core/Src/service.o: ../Core/Src/service.c \
  ../Middlewares/ST/BlueNRG-MS/includes/bluenrg_types.h \
  ../Middlewares/ST/BlueNRG-MS/utils/ble_list.h \
  ../Middlewares/ST/BlueNRG-MS/includes/hci_const.h ../Core/Inc/service.h \
- ../Core/Inc/msg_handler.h ../Core/Inc/flash_manager.h \
- ../Core/Inc/msg_handler.h
+ ../Core/Inc/connection_handler.h ../Core/Inc/flash_manager.h
+../Core/Inc/connection_handler.h:
 ../BlueNRG-MS/Target/bluenrg_conf.h:
 ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal.h:
 ../Core/Inc/stm32g0xx_hal_conf.h:
@@ -101,6 +101,5 @@ Core/Src/service.o: ../Core/Src/service.c \
 ../Middlewares/ST/BlueNRG-MS/utils/ble_list.h:
 ../Middlewares/ST/BlueNRG-MS/includes/hci_const.h:
 ../Core/Inc/service.h:
-../Core/Inc/msg_handler.h:
+../Core/Inc/connection_handler.h:
 ../Core/Inc/flash_manager.h:
-../Core/Inc/msg_handler.h:

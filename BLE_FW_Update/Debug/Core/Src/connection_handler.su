@@ -1,0 +1,4 @@
+../Core/Src/connection_handler.c:22:6:data_handler	72	static
+../Core/Src/connection_handler.c:106:6:verify_data_type	32	static
+../Core/Src/connection_handler.c:150:6:send_ack	32	static
+../Core/Src/connection_handler.c:185:9:sum_payload	24	static

@@ -31,8 +31,9 @@ extern uint8_t notification_enabled;
 /*
  * Initialization task
  */
-void BlueNRG_Init(void){
-	tBleStatus ret;
+HAL_StatusTypeDef BlueNRG_Init(void){
+	HAL_StatusTypeDef ret = HAL_OK;
+	tBleStatus ret_ble;
 	uint8_t bdaddr[BDADDR_SIZE];
 	const char *name = "MyBLE";
 
@@ -47,44 +48,50 @@ void BlueNRG_Init(void){
 	hci_reset();
 	HAL_Delay(100);
 
-	printf("Start initialization... \n\r");
+	printf("\r\nStart initialization... \n\r");
 	fflush(stdout);
 
 	/* Configure device address */
-	ret = aci_hal_write_config_data(CONFIG_DATA_PUBADDR_OFFSET, CONFIG_DATA_PUBADDR_LEN, bdaddr);
+	ret_ble = aci_hal_write_config_data(CONFIG_DATA_PUBADDR_OFFSET, CONFIG_DATA_PUBADDR_LEN, bdaddr);
 
-	if(ret != BLE_STATUS_SUCCESS){
+	if(ret_ble != BLE_STATUS_SUCCESS){
 		printf("Failed to set Public Address \n\r");
+		ret = HAL_ERROR;
 	}
 
 	/* Initialize GATT server */
-	aci_gatt_init();
-	if(ret != BLE_STATUS_SUCCESS){
+	ret_ble = aci_gatt_init();
+	if(ret_ble != BLE_STATUS_SUCCESS){
 		printf("Failed to GATT Initialization \n\r");
+		ret = HAL_ERROR;
 	}
 
 	/* Initialize GAP service */
-	ret = aci_gap_init_IDB05A1(GAP_PERIPHERAL_ROLE_IDB05A1, 0, 0x07, &service_handle, &dev_name_char_handle, &appearance_char_handle); //2nd arg -> privacy (0: no, 1: yes)
+	ret_ble = aci_gap_init_IDB05A1(GAP_PERIPHERAL_ROLE_IDB05A1, 0, 0x07, &service_handle, &dev_name_char_handle, &appearance_char_handle); //2nd arg -> privacy (0: no, 1: yes)
 	//ret = aci_gap_init_IDB04A1(GAP_PERIPHERAL_ROLE_IDB04A1, &service_handle, &dev_name_char_handle,  &appearance_char_handle);
 
-	if(ret != BLE_STATUS_SUCCESS){
+	if(ret_ble != BLE_STATUS_SUCCESS){
 		printf("Failed to Initialize GAP Service\n\r");
+		ret = HAL_ERROR;
 	}
 
 
 	/* Update characteristics */
-	ret = aci_gatt_update_char_value(service_handle, dev_name_char_handle, 0, strlen(name), (uint8_t *) name);
-	if(ret != BLE_STATUS_SUCCESS){
+	ret_ble = aci_gatt_update_char_value(service_handle, dev_name_char_handle, 0, strlen(name), (uint8_t *) name);
+	if(ret_ble != BLE_STATUS_SUCCESS){
 		printf("Failed to Update Characteristics %d\n\r", ret);
+		ret = HAL_ERROR;
 	}
 
 	/* Add custom service */
-	ret = Add_FWupdate_Service();
-	if(ret != BLE_STATUS_SUCCESS){
+	ret_ble = add_FW_Update_Service();
+	if(ret_ble != BLE_STATUS_SUCCESS){
 		printf("Failed to Add Service\n\r");
+		ret = HAL_ERROR;
 	}
 
 	fflush(stdout);
+	return ret;
 }
 
 
@@ -102,7 +109,7 @@ void BlueNRG_Process(void){
 
 }
 
-static void Enable_Advertising(void){
+void Enable_Advertising(void){
 	char local_name[] = {AD_TYPE_COMPLETE_LOCAL_NAME, 'B', 'L', 'E', '-', 'G', '-', 'U', 'P'};
 
 	hci_le_set_scan_resp_data(0, NULL);

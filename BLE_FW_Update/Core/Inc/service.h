@@ -2,7 +2,7 @@
 #ifndef SRC_SERVICE_H_
 #define SRC_SERVICE_H_
 
-#include "msg_handler.h"
+#include "connection_handler.h"
 
 /** Documentation for C union Service_UUID_t */
 typedef union Service_UUID_t_s {
@@ -26,7 +26,7 @@ typedef union Char_UUID_t_s {
 } Char_UUID_t;
 
 
-tBleStatus Add_FWupdate_Service(void);
+tBleStatus add_FW_Update_Service(void);
 void HCI_Event_CB(void *pData);
 
 void Update_TX_Char(uint8_t *data_buffer, uint8_t num_bytes);

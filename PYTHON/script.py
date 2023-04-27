@@ -2,7 +2,6 @@ import asyncio
 import binascii
 
 import bincopy
-import hashlib
 
 from bleak import BleakScanner
 from bleak import BleakClient
@@ -40,22 +39,8 @@ dv_info_button.grid(row=1, column=0)
     #loop.run_until_complete(print_device_info())
     #window.mainloop()
 
-
-async def rcv_from_module():
-    async with BleakClient(address) as client:
-        time.sleep(2)
-        print("Connected")
-
-        value = await client.start_notify(RCV_UUID, read_callback)
-        print("Session open, start receiving...")
-        #value = bytearray.decode(value)
-        #print(f"Ricevuto: {value}")
-        await asyncio.sleep(7)
-        await client.stop_notify(RCV_UUID)
-        await client.disconnect()
-        print("Disconnected!")
-
 ack_rcv = False
+is_ack = True
 
 
 def split_file_into_chunk(data, chunk_size=32):
@@ -65,12 +50,17 @@ def split_file_into_chunk(data, chunk_size=32):
 
 async def read_response(sender, data):
     global ack_rcv
+    global is_ack
+
     str = binascii.hexlify(bytearray(data))
     print(str)
-    if data[1] != 0x00:
-        print("ERROR!")
+    if data[0] != 0x00:
+        is_ack = False
+        print("NAK RECEIVED!")
     else:
-        ack_rcv = True
+        is_ack = True
+
+    ack_rcv = True
         
 
 class ConnectionStatus(Enum):
@@ -81,12 +71,14 @@ class ConnectionStatus(Enum):
 
 
 async def send_new_fw():
+    sbaglia = True
     connection_status = ConnectionStatus.IDLE
     async with BleakClient(address) as client:
         print("Connected")
         connection_status = ConnectionStatus.IDLE
 
         global ack_rcv  # notifies when an ack is received
+        global is_ack
 
         # prepare new firmware
         f = bincopy.BinFile()
@@ -130,14 +122,19 @@ async def send_new_fw():
 
             elif connection_status == ConnectionStatus.SENDING_DATA: # send new FW
                 cont_chunck = 0
-                for chunk in chunks:
+                while cont_chunck < num_chunks:
+                    chunk = chunks[cont_chunck]
 
                     msg = bytearray()
                     msg += bytearray.fromhex("bb")
                     msg += cont_chunck.to_bytes(2, byteorder='big')
                     msg += chunk
                     checksum = sum(msg[-len(chunk):]) & 0xFF
-                    msg += checksum.to_bytes(1, byteorder='big')
+                    if cont_chunck == 15 and sbaglia:
+                        msg += 0x01.to_bytes(1, byteorder='big')
+                        sbaglia = False
+                    else:
+                        msg += checksum.to_bytes(1, byteorder='big')
 
                     await client.write_gatt_char(TNS_UUID, msg, response=False)
                     # print("Sent message")
@@ -149,12 +146,14 @@ async def send_new_fw():
                             await asyncio.sleep(0.005)
                             pass
 
+                        if not is_ack:
+                            cont_chunck -= 10   # send again the last 10 chuncks of FW
+
                         ack_rcv = False
                     else:
                         await asyncio.sleep(0.008)  # time to the board to process the received data
 
-                    if cont_chunck == num_chunks:
-                        connection_status = ConnectionStatus.CLOSING_PHASE
+                connection_status = ConnectionStatus.CLOSING_PHASE
 
         # FW sent, now I can end the connection
         await client.stop_notify(RCV_UUID)

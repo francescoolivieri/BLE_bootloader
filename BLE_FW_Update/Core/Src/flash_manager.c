@@ -38,7 +38,7 @@ void Erase_Application_Memory(void){
 	HAL_StatusTypeDef ret;
 	uint32_t PageError;
 
-	printf("before : %x \n\r", *(volatile uint16_t*)0x08040000);
+	//printf("before : %x \n\r", *(volatile uint16_t*)0x08040000);
 
 	ret = HAL_FLASH_Unlock();
 	if(ret != HAL_OK){
@@ -72,8 +72,10 @@ void Erase_Application_Memory(void){
 	HAL_FLASH_OB_Lock();
 	HAL_FLASH_Lock();
 
-	printf("after: %x \n\r", *(volatile uint16_t*)0x08040000);
 
+	//printf("after: %x \n\r", *(volatile uint16_t*)0x08040000);
+
+	StartPageAddress = FLASH_APP_ADDR;
 }
 
 void go2App(void){

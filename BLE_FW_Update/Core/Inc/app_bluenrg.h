@@ -8,9 +8,9 @@
 #ifndef SRC_APP_BLUENRG_H_
 #define SRC_APP_BLUENRG_H_
 
-void BlueNRG_Init(void);
+HAL_StatusTypeDef BlueNRG_Init(void);
 void BlueNRG_Process(void);
 
-static void Enable_Advertising(void);
+void Enable_Advertising(void);
 
 #endif /* SRC_APP_BLUENRG_H_ */
