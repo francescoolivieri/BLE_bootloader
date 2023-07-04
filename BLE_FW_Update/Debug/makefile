@@ -39,40 +39,40 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := BLE_FW_Update
+BUILD_ARTIFACT_NAME := BLE_FW_Update3
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-BLE_FW_Update.elf \
+BLE_FW_Update3.elf \
 
 MAP_FILES += \
-BLE_FW_Update.map \
+BLE_FW_Update3.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-BLE_FW_Update.list \
+BLE_FW_Update3.list \
 
 OBJCOPY_BIN += \
-BLE_FW_Update.bin \
+BLE_FW_Update3.bin \
 
 OBJCOPY_SREC += \
-BLE_FW_Update.srec \
+BLE_FW_Update3.srec \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: BLE_FW_Update.elf secondary-outputs
+main-build: BLE_FW_Update3.elf secondary-outputs
 
 # Tool invocations
-BLE_FW_Update.elf BLE_FW_Update.map: $(OBJS) $(USER_OBJS) C:\Users\Francesco\ Olivieri\Documents\BYTEM\Projects\BLE_FW_Update\STM32G0B1RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "BLE_FW_Update.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"C:\Users\Francesco Olivieri\Documents\BYTEM\Projects\BLE_FW_Update\STM32G0B1RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="BLE_FW_Update.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+BLE_FW_Update3.elf BLE_FW_Update3.map: $(OBJS) $(USER_OBJS) C:\Users\Francesco\ Olivieri\Documents\BYTEM\Projects\BLE_FW_Update3\STM32G0B1RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "BLE_FW_Update3.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"C:\Users\Francesco Olivieri\Documents\BYTEM\Projects\BLE_FW_Update3\STM32G0B1RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="BLE_FW_Update3.map" -Wl,--gc-sections -static -L"C:\Users\Francesco Olivieri\Documents\ST-Libraries\STM32CubeExpansion_Crypto_V4.1.0\Middlewares\ST\STM32_Cryptographic\lib" --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -81,24 +81,24 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-BLE_FW_Update.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "BLE_FW_Update.list"
+BLE_FW_Update3.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "BLE_FW_Update3.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-BLE_FW_Update.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "BLE_FW_Update.bin"
+BLE_FW_Update3.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "BLE_FW_Update3.bin"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-BLE_FW_Update.srec: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objcopy  -O srec $(EXECUTABLES) "BLE_FW_Update.srec"
+BLE_FW_Update3.srec: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O srec $(EXECUTABLES) "BLE_FW_Update3.srec"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) BLE_FW_Update.bin BLE_FW_Update.elf BLE_FW_Update.list BLE_FW_Update.map BLE_FW_Update.srec default.size.stdout
+	-$(RM) BLE_FW_Update3.bin BLE_FW_Update3.elf BLE_FW_Update3.list BLE_FW_Update3.map BLE_FW_Update3.srec default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_BIN) $(OBJCOPY_SREC)

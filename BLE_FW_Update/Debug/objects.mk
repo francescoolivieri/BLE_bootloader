@@ -5,5 +5,5 @@
 
 USER_OBJS :=
 
-LIBS :=
+LIBS := -lSTM32Cryptographic_CM0_CM0PLUS
 

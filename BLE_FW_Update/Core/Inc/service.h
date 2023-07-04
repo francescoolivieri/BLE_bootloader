@@ -2,7 +2,7 @@
 #ifndef SRC_SERVICE_H_
 #define SRC_SERVICE_H_
 
-#include "connection_handler.h"
+#include <message_handler.h>
 
 /** Documentation for C union Service_UUID_t */
 typedef union Service_UUID_t_s {

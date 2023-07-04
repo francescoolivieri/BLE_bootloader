@@ -1,4 +1,4 @@
-#include <connection_handler.h>
+#include <message_handler.h>
 #include <stdio.h>
 
 #include "bluenrg_conf.h"
@@ -57,15 +57,13 @@ tBleStatus add_FW_Update_Service(void){
 		return ret;
 	}
 
-	// prepare memory for the new FW
-	Erase_Application_Memory();
-
 	return ret;
 }
 
 void Update_TX_Char(uint8_t *data_buffer, uint8_t num_bytes){
 	tBleStatus ret;
 
+	printf("response: ");
 	for(int i=0; i<num_bytes ; i++){
 		printf("%02x ", data_buffer[i]);
 	}
@@ -97,7 +95,7 @@ void GAP_DisconnectionComplete_CB(void){
 	connection_status = IDLE;
 	printf("Disconnection Complete...\n\r");
 
-	if(count_pck == total_pck){
+	if(count_pck == total_pck && total_pck != 0){
 		printf("Jump to the new FW :\n\n\r");
 		go2App();
 	}else{

@@ -1,0 +1,7 @@
+message_handler.c:55:6:data_handler	29
+message_handler.c:214:6:verify_data_type	14
+message_handler.c:271:6:send_ack	5
+message_handler.c:340:9:sum_payload	2
+message_handler.c:351:6:init_crypto	2
+message_handler.c:360:6:decrypt_data	6
+message_handler.c:404:6:encrypt_data	6

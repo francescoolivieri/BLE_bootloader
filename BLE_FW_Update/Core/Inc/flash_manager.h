@@ -14,6 +14,7 @@ typedef void (*pFunction)(void);
 
 void Write_FW_to_flash(uint64_t *data_to_flash, uint16_t num_bytes);
 void Erase_Application_Memory(void);
+void Set_FLASH_Protection(void);
 
 
 void go2App(void);

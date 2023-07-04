@@ -68,7 +68,7 @@ HAL_StatusTypeDef BlueNRG_Init(void){
 
 	/* Initialize GAP service */
 	ret_ble = aci_gap_init_IDB05A1(GAP_PERIPHERAL_ROLE_IDB05A1, 0, 0x07, &service_handle, &dev_name_char_handle, &appearance_char_handle); //2nd arg -> privacy (0: no, 1: yes)
-	//ret = aci_gap_init_IDB04A1(GAP_PERIPHERAL_ROLE_IDB04A1, &service_handle, &dev_name_char_handle,  &appearance_char_handle);
+
 
 	if(ret_ble != BLE_STATUS_SUCCESS){
 		printf("Failed to Initialize GAP Service\n\r");

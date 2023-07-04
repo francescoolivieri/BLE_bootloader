@@ -78,6 +78,35 @@ void Erase_Application_Memory(void){
 	StartPageAddress = FLASH_APP_ADDR;
 }
 
+void Set_FLASH_Protection(void){
+	FLASH_OBProgramInitTypeDef obConfig;
+
+	HAL_FLASHEx_OBGetConfig(&obConfig);
+
+	/*
+	 * Should I set also SEC_PROT ? -> I think so, because with SEC_PROT the section of the
+	 * 	memory dedicated will not be visible by the application
+	 */
+
+	if((obConfig.WRPArea & OB_WRPAREA_ZONE_A)){
+		HAL_FLASH_Unlock();
+		HAL_FLASH_OB_Unlock();
+
+		obConfig.OptionType = OPTIONBYTE_WRP;
+
+		obConfig.WRPArea = OB_WRPAREA_ZONE_A;
+		obConfig.WRPStartOffset = 0;
+		obConfig.WRPEndOffset = 10;
+
+		HAL_FLASHEx_OBProgram(&obConfig);
+		HAL_FLASH_OB_Launch();
+
+		HAL_FLASH_OB_Lock();
+		HAL_FLASH_Lock();
+	}
+
+}
+
 void go2App(void){
 	uint32_t JumpAddress;
 	pFunction Jump_TO_Application;

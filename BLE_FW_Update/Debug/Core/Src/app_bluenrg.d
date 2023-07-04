@@ -25,6 +25,8 @@ Core/Src/app_bluenrg.o: ../Core/Src/app_bluenrg.c \
  ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_ll_dmamux.h \
  ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_dma_ex.h \
  ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_cortex.h \
+ ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_crc.h \
+ ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_crc_ex.h \
  ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_exti.h \
  ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_flash.h \
  ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_flash_ex.h \
@@ -32,6 +34,8 @@ Core/Src/app_bluenrg.o: ../Core/Src/app_bluenrg.c \
  ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_pwr_ex.h \
  ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_spi.h \
  ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_spi_ex.h \
+ ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_tim.h \
+ ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_tim_ex.h \
  ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_uart.h \
  ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_uart_ex.h \
  ../Middlewares/ST/BlueNRG-MS/includes/hci.h \
@@ -55,8 +59,8 @@ Core/Src/app_bluenrg.o: ../Core/Src/app_bluenrg.c \
  ../Middlewares/ST/BlueNRG-MS/includes/bluenrg_gap.h \
  ../Middlewares/ST/BlueNRG-MS/includes/link_layer.h \
  ../Middlewares/ST/BlueNRG-MS/includes/hci_le.h ../Core/Inc/gpio.h \
- ../Core/Inc/main.h ../Core/Inc/service.h \
- ../Core/Inc/connection_handler.h ../Core/Inc/app_bluenrg.h
+ ../Core/Inc/main.h ../Core/Inc/service.h ../Core/Inc/message_handler.h \
+ ../Core/Inc/app_bluenrg.h
 ../Middlewares/ST/BlueNRG-MS/includes/bluenrg_utils.h:
 ../Middlewares/ST/BlueNRG-MS/includes/bluenrg_types.h:
 ../Middlewares/ST/BlueNRG-MS/includes/compiler.h:
@@ -83,6 +87,8 @@ Core/Src/app_bluenrg.o: ../Core/Src/app_bluenrg.c \
 ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_ll_dmamux.h:
 ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_dma_ex.h:
 ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_cortex.h:
+../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_crc.h:
+../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_crc_ex.h:
 ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_exti.h:
 ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_flash.h:
 ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_flash_ex.h:
@@ -90,6 +96,8 @@ Core/Src/app_bluenrg.o: ../Core/Src/app_bluenrg.c \
 ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_pwr_ex.h:
 ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_spi.h:
 ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_spi_ex.h:
+../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_tim.h:
+../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_tim_ex.h:
 ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_uart.h:
 ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_uart_ex.h:
 ../Middlewares/ST/BlueNRG-MS/includes/hci.h:
@@ -117,5 +125,5 @@ Core/Src/app_bluenrg.o: ../Core/Src/app_bluenrg.c \
 ../Core/Inc/gpio.h:
 ../Core/Inc/main.h:
 ../Core/Inc/service.h:
-../Core/Inc/connection_handler.h:
+../Core/Inc/message_handler.h:
 ../Core/Inc/app_bluenrg.h:

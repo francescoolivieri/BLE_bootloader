@@ -1,4 +1,0 @@
-../Core/Src/msg_handler.c:23:6:data_handler	72	static
-../Core/Src/msg_handler.c:100:6:verify_data	32	static
-../Core/Src/msg_handler.c:144:6:send_ack	32	static
-../Core/Src/msg_handler.c:179:9:sum_payload	24	static

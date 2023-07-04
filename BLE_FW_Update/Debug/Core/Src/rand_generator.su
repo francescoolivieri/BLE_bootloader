@@ -1,0 +1,2 @@
+../Core/Src/rand_generator.c:11:6:init_rand_generator	16	static
+../Core/Src/rand_generator.c:15:9:get_rand_byte	16	static
